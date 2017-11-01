@@ -1,9 +1,10 @@
-@primary-color: #039BE5;
+@primary-color: #e2e2e2;
 
 .reactions {
     display: flex;
     flex-direction: row;
     align-items: center;
+    margin-bottom: 10px;
 
     .reaction {
         border: 1px solid lighten(@primary-color, 35%);
@@ -20,20 +21,23 @@
         .reaction-emoji-count {
             font-size: 12px;
             padding: 0 2px;
-            color: #777;
+            color: #acacac;
 
             &:before {
                 content: attr(data-count);
             }
         }
     }
+}
 
-    .reaction-add {
-        margin-right: 10px;
-        cursor: pointer;
+.reaction-add {
+    margin-right: 15px;
+    cursor: pointer;
+    font-size: 16px;
+    position: relative;
+    top: 2px;
 
-        &.max-reactions {
-            display: none;
-        }
+    &.max-reactions {
+        display: none;
     }
 }

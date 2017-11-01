@@ -191,7 +191,6 @@ reactions.getReactions = function (data, callback) {
 			}, function (err, results) {
 				var reactionInfo = '<span class="reactions" component="post/reactions" data-pid="' + post.pid + '">';
 				var maxReactionsReached = results.totalReactions >= results.maximumReactions ? ' max-reactions' : '';
-				reactionInfo = reactionInfo + '<span class="reaction-add' + maxReactionsReached + '" component="post/reaction/add" data-pid="' + post.pid + '" title="Add reaction"><i class="fa fa-plus-square-o"></i></span>';
 
 				results.reactions.forEach(function (reaction, index) {
 					var usernames = reaction.userdata.map(function (user) {
@@ -204,6 +203,8 @@ reactions.getReactions = function (data, callback) {
 				});
 
 				post.reactions = reactionInfo + '</span>';
+
+				post.add_reaction = '<span class="reaction-add' + maxReactionsReached + '" component="post/reaction/add" data-pid="' + post.pid + '" title="Add reaction"><i class="fa fa-smile-o"></i></span>';
 				next();
 			});
 		}, function (err) {
@@ -216,10 +217,9 @@ reactions.getReactions = function (data, callback) {
 }
 
 reactions.onReply = function (data, callback) {
-	if (data.uid !== 0) {
-		var reactionInfo = '<span class="reactions" component="post/reactions" data-pid="' + data.pid + '">';
-		reactionInfo = reactionInfo + '<span class="reaction-add" component="post/reaction/add" data-pid="' + data.pid + '" title="Add reaction"><i class="fa fa-plus-square-o"></i></span>';
-		data.reactions = reactionInfo + '</span>';
+	if (data.post && data.post.uid !== 0) {
+		data.post.reactions = '<span class="reactions" component="post/reactions" data-pid="' + data.post.pid + '"></span>';
+		data.post.add_reaction = '<span class="reaction-add" component="post/reaction/add" data-pid="' + data.post.pid + '" title="Add reaction"><i class="fa fa-smile-o"></i></span>';
 	}
 	callback(null, data);
 }
